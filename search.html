@@ -1,0 +1,183 @@
+<!DOCTYPE>
+<HTML>
+<HEAD>
+<STYLE>
+H1 {
+    padding-left: 500px;
+   }
+
+H2 {
+    font-size: 65px;
+   }
+
+H1,H2 {display: inline
+      }
+
+
+.page{
+     padding: 5px;
+     border: 3px;
+     border-style: solid;
+     }
+
+.inputs {
+     border: 5px ;
+     padding: 25px;
+     margin: 25px;
+     margin-left: 350px;
+     border-style: solid;
+     width: 800px;
+     height: 500px;} 
+
+.buttons_div {
+   position: absolute;
+   right: 0px;
+   left: 970px;
+}
+
+.buttons {
+   width: 110px;
+   height: 30px;
+}
+  
+
+p {
+line-height: -100px;
+white-space: nowrap;
+}
+</STYLE>
+
+<SCRIPT>
+function search()
+{
+  var err_str="";
+  var kw = document.getElementById("keyWord").value;
+  var kw_empty = 0;
+  kw =kw.trim();
+  if(!kw)
+  {
+    kw_empty = 1;
+    err_str = "Please enter values for key words.\n";
+  }
+  
+  var minp = 0 , maxp = 0, price_wrong =0, range_wrong = 0;
+  minp = document.getElementById("minpr").value; 
+  maxp = document.getElementById("maxpr").value; 
+
+  if(minp < 0 || maxp < 0)
+  {
+    range_wrong = 1;
+    err_str = err_str+"Please enter a positive number range.\n";
+  }
+
+  if(minp > maxp)
+  {
+    err_str = err_str+"Minimum price should be greater than the maximum price.\n";
+    price_wrong = 1;
+  }
+
+  var nod , days_wrong = 0;
+  nod = document.getElementById("days").value;
+  if(nod && nod < 1)
+  {
+    err_str = err_str+"Max handling time cannot be less than 1 day.\n";
+    days_wrong = 1;
+  }
+
+  if(kw_empty == 1 || range_wrong == 1 || price_wrong == 1|| days_wrong == 1)  
+  {
+    alert(err_str);
+    return false;
+  }
+  
+}
+
+</SCRIPT>
+</HEAD>
+
+
+<BODY>
+
+<?php>
+$kwrd = "";
+$min = 0, $max = 0, $mhd = 0;
+
+?>
+
+<div class="page">
+<H1>
+<input type="image" src=http://cs-server.usc.edu:45678/hw/hw6/ebay.jpg>
+</H1>
+<H2> Shopping </H2>
+<div class="inputs">
+<Form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="search()" class="search_clear">
+
+<p>Key Words*:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      
+<input type="text" id="keyWord" name=kw style='width: 660px'>
+</p>
+
+<hr size="1" noshade="noshade">
+
+<p>Price Range: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      from $<input type="number" id="minpr" step="any"> to $<input type="number" id="maxpr" step="any"> </p> 
+
+<hr size="1" noshade="noshade">
+
+<p>
+Condition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="condition" value="New"> New 
+<input type="checkbox" id="condition" value="VGood"> Very Good 
+<input type="checkbox" id="condition" value="Good"> Good 
+<input type="checkbox" id="condition" value="acceptable"> Acceptable 
+</p>
+
+<hr size="1" noshade="noshade">
+<p>Buying formats:&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="BF" value="Now"> Buy It Now 
+<input type="checkbox" id="BF" value="Auction"> Auction 
+<input type="checkbox" id="BF" value="Classifieds Ads"> Classified Ads 
+</p>
+
+
+<hr size="1" noshade="noshade">
+<p>
+Shipping: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="shipping" value="free"> Free Shipping </BR> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="shipping" value="exp"> Expedited shipping available </BR> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max handling time (days):<input type="textbox" id="days"> 
+</p>
+
+<hr size="1" noshade="noshade">
+
+<p>
+Sort by:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<select>
+<option value="BestMatch">Best Match</option>
+<option value="Price">Price: highest first</option>
+<option value="pr_del">Price + Shipping: highest first</option>
+<option value="pr_del1">Price + Shiping: lowest first</option>
+</select>
+</p>
+<hr size="1" noshade="noshade">
+
+<p>
+Results Per Page:&nbsp;
+<select>
+<option value="RPP5">5</option>
+<option value="RPP10">10</option>
+<option value="RPP15">15</option>
+<option value="RPP20">20</option>
+</select>
+</p>
+
+
+<div class="buttons_div">
+<input type="submit" class="buttons" onclick="this.form.reset()" value="clear">
+<input type="submit" class="buttons" onclick="search()" value="search">
+</div>
+
+ 
+</Form>
+
+</div>
+</div>
+<noscript>
+</BODY>
+</HTML>
+
